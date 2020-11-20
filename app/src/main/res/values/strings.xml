@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">HW 9 Nav and Reg</string>
+    <string name="enter_login">Введите логин</string>
+    <string name="enter_password">Введите пароль</string>
+    <string name="btn_login">Вход</string>
+    <string name="btn_registration">Регистрация</string>
+    <string name="btn_confirm">подтвердить</string>
+    <string name="btn_cancel">отмена</string>
+    <string name="edit_password_repeat">Повторите пароль</string>
+    <string name="success">Добро пожаловать!</string>
+    <string name="authentication_failed">Неправельный логин или пароль!</string>
+    <string name="registration_failed">Такой логин уже существует</string>
+    <string name="auth_label">Авторизация</string>
+    <string name="reg_label">Регистрация</string>
+    <string name="good_reg">Успешная регистрация</string>
+    <string name="feed_label">Лента с постами</string>
+    <string name="error_password_not_same">Пароль не синхронный</string>
+
+</resources>
