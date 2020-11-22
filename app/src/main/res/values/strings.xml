@@ -14,6 +14,9 @@
     <string name="reg_label">Регистрация</string>
     <string name="good_reg">Успешная регистрация</string>
     <string name="feed_label">Лента с постами</string>
-    <string name="error_password_not_same">Пароль не синхронный</string>
+    <string name="error_password_not_same">Пароль должен быть из латинских букв, не короче 6 символов и иметь хотябы одну заглавную букву.</string>
+    <string name="error_password_not_same_2">Пароли должны быть синхронны!!!.</string>
+    <string name="titlePD">Информация</string>
+    <string name="massagePD">Соединение с сервером...</string>
 
 </resources>
