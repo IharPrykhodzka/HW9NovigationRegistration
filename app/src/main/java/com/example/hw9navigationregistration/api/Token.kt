@@ -1,3 +1,3 @@
 package com.example.hw9navigationregistration.api
 
-class Token(token: String)
+class Token(val token: String)
