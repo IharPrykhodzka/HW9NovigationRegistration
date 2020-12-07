@@ -18,5 +18,7 @@
     <string name="error_password_not_same_2">Пароли должны быть синхронны!!!.</string>
     <string name="titlePD">Информация</string>
     <string name="massagePD">Соединение с сервером...</string>
+    <string name="log_out">Log Out</string>
+    <string name="title_feed_activity">Лента постов</string>
 
 </resources>

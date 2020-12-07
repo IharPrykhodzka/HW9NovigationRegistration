@@ -56,13 +56,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (isAuthenticated()) {
-            startFeedActivity()
-        }
-    }
-
     private fun isAuthenticated() =
         getSharedPreferences(API_SHARED_FILE, Context.MODE_PRIVATE).getString(
             AUTHENTICATED_SHARED_KEY, ""
@@ -72,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         getSharedPreferences(API_SHARED_FILE, Context.MODE_PRIVATE)
             .edit()
             .putString(AUTHENTICATED_SHARED_KEY, token)
-            .commit()
+            .apply()
 
     private fun startFeedActivity() {
         val feedIntent = Intent(this@MainActivity, FeedActivity::class.java)
