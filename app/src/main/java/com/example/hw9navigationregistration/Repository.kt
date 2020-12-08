@@ -39,7 +39,7 @@ object Repository {
         )
 
     suspend fun registration(login: String, password: String) =
-        API.registrable(
+        API.register(
             RegistrationRequestParams(login, password)
         )
 }

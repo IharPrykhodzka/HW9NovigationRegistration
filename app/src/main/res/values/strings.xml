@@ -21,4 +21,6 @@
     <string name="log_out">Log Out</string>
     <string name="title_feed_activity">Лента постов</string>
 
+    <string name="error_create_post">Ошибка при создании поста.</string>
+    <string name="error_take_post">Такого поста не существует.</string>
 </resources>

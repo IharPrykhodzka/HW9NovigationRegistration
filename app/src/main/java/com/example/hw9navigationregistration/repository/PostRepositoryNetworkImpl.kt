@@ -1,6 +1,8 @@
 package com.example.hw9navigationregistration.repository
 
 
+import com.example.hw9navigationregistration.App
+import com.example.hw9navigationregistration.R
 import com.example.hw9navigationregistration.api.*
 import com.example.hw9navigationregistration.dto.PostRequestDto
 import com.example.hw9navigationregistration.dto.PostResponseDto
@@ -17,20 +19,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 
-const val serverUrl =
-    "https://ncraftmedia.herokuapp.com/api/v1/posts"
+const val serverUrl = "https://netology-back-end-post-hw-8.herokuapp.com"
 
 class PostRepositoryNetworkImpl : PostRepository {
+
     private var retrofit: Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://ncraftmedia.herokuapp.com")
+            .baseUrl(serverUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    private var api: API =
-        retrofit.create(
-            API::class.java
-        )
+    private var api: API = retrofit.create(API::class.java)
 
     private lateinit var userAuth: User
 
@@ -73,7 +72,7 @@ class PostRepositoryNetworkImpl : PostRepository {
 
         retrofit = Retrofit.Builder()
             .client(client)
-            .baseUrl("https://ncraftmedia.herokuapp.com")
+            .baseUrl(serverUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -88,7 +87,7 @@ class PostRepositoryNetworkImpl : PostRepository {
         if (response.isSuccessful) {
             val postResponseDtoList: List<PostResponseDto> = requireNotNull(response.body())
             return postResponseDtoList.map(PostResponseDto.Companion::toModel)
-        } else throw IOException()
+        } else throw Exception("Penises")
     }
 
     override suspend fun getById(id: Int): PostModel {
@@ -98,7 +97,7 @@ class PostRepositoryNetworkImpl : PostRepository {
             val postResponseDto = response.body() ?: throw PostNotFoundException()
             return PostResponseDto.toModel(postResponseDto)
         } else {
-            throw Exception() //TODO конкретизировать исключения
+            throw Exception(R.string.error_take_post.toString())
         }
     }
 
@@ -114,7 +113,7 @@ class PostRepositoryNetworkImpl : PostRepository {
         if (response.isSuccessful) {
             return PostResponseDto.toModel(requireNotNull(response.body()))
         } else {
-            throw Exception("Ошибка при создании поста")
+            throw Exception(R.string.error_create_post.toString())
         }
     }
 
