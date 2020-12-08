@@ -1,7 +1,9 @@
 package com.example.hw9navigationregistration.api
 
+import com.example.hw9navigationregistration.dto.PostResponseDto
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface API {
@@ -10,4 +12,7 @@ interface API {
 
     @POST("/api/v1/registration")
     suspend fun registrable(@Body registrationRequestParams: RegistrationRequestParams): Response<Token>
+
+    @GET("api/v1/posts")
+    suspend fun getAllPosts(): Response<List<PostResponseDto>>
 }

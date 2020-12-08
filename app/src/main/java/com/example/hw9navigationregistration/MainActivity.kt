@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.example.hw9navigationregistration.Repository.createRetrofitWithAuth
 import com.example.hw9navigationregistration.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
@@ -17,6 +18,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (isAuthenticated()) {
+
+            val token = getSharedPreferences(API_SHARED_FILE, Context.MODE_PRIVATE).getString(
+                AUTHENTICATED_SHARED_KEY, ""
+            )
+            Repository.createRetrofitWithAuth(token!!)
+
             startFeedActivity()
         } else {
 
