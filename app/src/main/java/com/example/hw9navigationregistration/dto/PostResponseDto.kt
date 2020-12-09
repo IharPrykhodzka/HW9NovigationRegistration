@@ -42,5 +42,25 @@ data class PostResponseDto(
             timesShown = model.timesShown
 
         )
+
+        fun toModel(dto: PostResponseDto) = PostModel(
+            id = dto.id,
+            author = dto.author,
+            content = dto.content,
+            created = dto.created,
+            likesCount = dto.likesCount,
+            commentsCount = dto.commentsCount,
+            shareCount = dto.shareCount,
+            likedByMe = dto.likedByMe,
+            commentedByMe = dto.commentedByMe,
+            sharedByMe = dto.sharedByMe,
+            address = dto.address,
+            location = dto.location,
+            video = dto.video,
+            advertising = dto.advertising,
+            source = dto.source,
+            postType = dto.postType,
+            timesShown = dto.timesShown
+        )
     }
 }

@@ -8,10 +8,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.example.hw9navigationregistration.api.Token
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hw9navigationregistration.adapter.PostAdapter
+import com.example.hw9navigationregistration.dto.PostResponseDto
 import com.example.hw9navigationregistration.utils.API_SHARED_FILE
 import com.example.hw9navigationregistration.utils.AUTHENTICATED_SHARED_KEY
-import com.example.hw9navigationregistration.utils.easyToastRes
 import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
@@ -21,6 +22,8 @@ class FeedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
+
+        rvItemPost.layoutManager = LinearLayoutManager(this)
 
         supportActionBar?.hide()
 
@@ -49,6 +52,9 @@ class FeedActivity : AppCompatActivity() {
             if (result.isSuccessful) {
                 Toast.makeText(this@FeedActivity, result.toString(), Toast.LENGTH_SHORT).show()
                 progressDialog.dismiss()
+
+                val postResponseDtoList: List<PostResponseDto> = requireNotNull(result.body())
+                rvItemPost.adapter = PostAdapter(postResponseDtoList.map(PostResponseDto.Companion::toModel))
 
             } else {
                 Toast.makeText(this@FeedActivity, result.toString(), Toast.LENGTH_SHORT).show()

@@ -41,5 +41,25 @@ data class PostRequestDto(
             postType = dto.postType,
             timesShown = dto.timesShown
         )
+
+        fun fromModel(model: PostModel) = PostRequestDto(
+            id = model.id,
+            author = model.author,
+            content = model.content,
+            created = model.created,
+            likesCount = model.likesCount,
+            commentsCount = model.commentsCount,
+            shareCount = model.shareCount,
+            likedByMe = model.likedByMe,
+            commentedByMe = model.commentedByMe,
+            sharedByMe = model.sharedByMe,
+            address = model.address,
+            location = model.location,
+            video = model.video,
+            advertising = model.advertising,
+            source = model.source,
+            postType = model.postType,
+            timesShown = model.timesShown,
+        )
     }
 }

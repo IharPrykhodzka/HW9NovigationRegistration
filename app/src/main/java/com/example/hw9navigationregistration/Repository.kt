@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 object Repository {
     // Ленивое создание Retrofit экземпляра
-    private var retrofit: Retrofit=
+    private var retrofit: Retrofit =
         Retrofit.Builder()
             .baseUrl("https://netology-back-end-post-hw-8.herokuapp.com")
             .addConverterFactory(GsonConverterFactory.create())
@@ -27,14 +27,12 @@ object Repository {
             .build()
 
 
-
-
     // Добавление interceptor-ов в retrofit клиент. Во все последующие запросы будет добавляться токен
     // и они будут логироваться
 
     fun createRetrofitWithAuth(authToken: String) {
 
-       retrofit = Retrofit.Builder()
+        retrofit = Retrofit.Builder()
             .baseUrl("https://netology-back-end-post-hw-8.herokuapp.com")
             .addConverterFactory(GsonConverterFactory.create())
             .client(
@@ -51,9 +49,6 @@ object Repository {
         API = retrofit.create(com.example.hw9navigationregistration.api.API::class.java)
 
     }
-
-
-
 
 
     // Ленивое создание API

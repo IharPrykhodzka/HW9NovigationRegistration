@@ -29,7 +29,6 @@ class InjectAuthTokenInterceptor(private val authToken: String) : Interceptor {
     private fun checkResponseCode(code: Int) {
         when (code) {
             401 -> throw Exception("Без Токена")
-            //TODO *** -> throw PostNotFoundException()
         }
     }
 }
