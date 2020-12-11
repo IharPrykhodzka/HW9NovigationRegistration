@@ -14,9 +14,11 @@ import com.example.hw9navigationregistration.model.PostModel
 import com.example.hw9navigationregistration.utils.API_SHARED_FILE
 import com.example.hw9navigationregistration.utils.AUTHENTICATED_SHARED_KEY
 import com.example.hw9navigationregistration.utils.MY_LOG
+import com.example.hw9navigationregistration.utils.getUserId
 import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_standard_post.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import splitties.toast.toast
 
@@ -75,6 +77,7 @@ class FeedActivity : AppCompatActivity(), PostAdapter.OnLikeBtnClickListener {
     override fun onStart() {
         super.onStart()
         lifecycleScope.launch {
+
             dialog = ProgressDialog(this@FeedActivity).apply {
                 setMessage(this@FeedActivity.getString(R.string.massagePD))
                 setTitle(R.string.titlePD)
@@ -106,7 +109,7 @@ class FeedActivity : AppCompatActivity(), PostAdapter.OnLikeBtnClickListener {
             with(rvItemPost) {
                 adapter?.notifyItemChanged(position)
 
-                val response = if (item.likedByMe) {
+                val response = if (item.likedByMe.contains(context.getUserId())) {
                     Repository.cancelMyLike(item.id)
 
                 } else {

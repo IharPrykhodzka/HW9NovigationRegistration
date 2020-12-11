@@ -3,8 +3,8 @@ package com.example.hw9navigationregistration
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.hw9navigationregistration.utils.easyToastRes
 import com.example.hw9navigationregistration.utils.isValid
+import com.example.hw9navigationregistration.utils.toast
 import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -41,7 +41,7 @@ class RegistrationActivity : AppCompatActivity(), CoroutineScope by MainScope() 
                         if (progressDialog != null) {
                             progressDialog!!.cancel()
                         }
-                        easyToastRes(this@RegistrationActivity, R.string.good_reg)
+                        toast(R.string.good_reg)
                         finish()
                     } else {
                         if (progressDialog != null) {

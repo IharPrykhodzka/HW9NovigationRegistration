@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hw9navigationregistration.R
 import com.example.hw9navigationregistration.model.PostModel
+import com.example.hw9navigationregistration.utils.getUserId
 import kotlinx.android.synthetic.main.item_standard_post.view.*
 import splitties.toast.toast
 
@@ -50,7 +51,7 @@ class PostViewHolder(private val adapter: PostAdapter, view: View) : RecyclerVie
                 if (currentPosition != RecyclerView.NO_POSITION) {
                     val item = adapter.list[currentPosition]
 
-                    if (item.likedByMe) {
+                    if (item.likeActionPerforming) {
                         context.toast(context.getString(R.string.like_in_progress))
                     } else {
                         adapter.likeBtnClickListener?.onLikeBtnClicked(item, currentPosition)
@@ -59,30 +60,30 @@ class PostViewHolder(private val adapter: PostAdapter, view: View) : RecyclerVie
             }
 
 
-            btnShare.setOnClickListener {
-                val currentPosition = adapterPosition
-                if (currentPosition != RecyclerView.NO_POSITION) {
-                    val item = adapter.list[currentPosition]
-
-                    if (item.sharedByMe) {
-                        val intent = Intent().apply {
-                            action = Intent.ACTION_SEND
-                            putExtra(
-                                Intent.EXTRA_TEXT,
-                                """${item.author}
-                                   ${item.content}
-                                """.trimIndent()
-                            )
-                            type = "text/plain"
-                        }
-                        val context = author.context
-                        context.startActivity(intent)
-
-                    } else {
-                        context.toast(context.getString(R.string.like_in_progress))
-                    }
-                }
-            }
+//            btnShare.setOnClickListener {
+//                val currentPosition = adapterPosition
+//                if (currentPosition != RecyclerView.NO_POSITION) {
+//                    val item = adapter.list[currentPosition]
+//
+//                    if (item.sharedByMe) {
+//                        val intent = Intent().apply {
+//                            action = Intent.ACTION_SEND
+//                            putExtra(
+//                                Intent.EXTRA_TEXT,
+//                                """${item.author}
+//                                   ${item.content}
+//                                """.trimIndent()
+//                            )
+//                            type = "text/plain"
+//                        }
+//                        val context = author.context
+//                        context.startActivity(intent)
+//
+//                    } else {
+//                        context.toast(context.getString(R.string.like_in_progress))
+//                    }
+//                }
+//            }
         }
     }
 
@@ -131,15 +132,20 @@ class PostViewHolder(private val adapter: PostAdapter, view: View) : RecyclerVie
 //                forBtnShare.text = post.shareCount.toString()
 //            }
 
-            if (post.likeActionPerforming) {
-                btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_blue_24)
-            } else if (post.likedByMe) {
-                btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_red_24)
-                forBtnLike.setTextColor(ContextCompat.getColor(context, R.color.red))
-            } else {
-                btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
-                forBtnLike.setTextColor(ContextCompat.getColor(context, R.color.grey))
+            when {
+                post.likeActionPerforming -> {
+                    btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_blue_24)
+                    forBtnLike.setTextColor(ContextCompat.getColor(context, R.color.blue))
+                }
+                post.likedByMe.contains(context.getUserId()) -> {
+                    btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_red_24)
+                    forBtnLike.setTextColor(ContextCompat.getColor(context, R.color.red))
+                }
+                else -> {
+                    btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
+                    forBtnLike.setTextColor(ContextCompat.getColor(context, R.color.grey))
 
+                }
             }
         }
     }

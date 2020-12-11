@@ -15,6 +15,7 @@ object Repository {
     private var retrofit: Retrofit =
         Retrofit.Builder()
             .baseUrl("https://netology-back-end-post-hw-8.herokuapp.com")
+//            .baseUrl("http://0.0.0.0:8753")
             .addConverterFactory(GsonConverterFactory.create())
             .client(
                 OkHttpClient().newBuilder()
@@ -27,13 +28,11 @@ object Repository {
             .build()
 
 
-    // Добавление interceptor-ов в retrofit клиент. Во все последующие запросы будет добавляться токен
-    // и они будут логироваться
-
     fun createRetrofitWithAuth(authToken: String) {
 
         retrofit = Retrofit.Builder()
             .baseUrl("https://netology-back-end-post-hw-8.herokuapp.com")
+//            .baseUrl("http://0.0.0.0:8753")
             .addConverterFactory(GsonConverterFactory.create())
             .client(
                 OkHttpClient().newBuilder()

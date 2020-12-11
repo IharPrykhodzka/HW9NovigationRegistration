@@ -5,8 +5,10 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.example.hw9navigationregistration.Repository.createRetrofitWithAuth
+import com.example.hw9navigationregistration.api.Token
 import com.example.hw9navigationregistration.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
@@ -18,12 +20,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (isAuthenticated()) {
-
             val token = getSharedPreferences(API_SHARED_FILE, Context.MODE_PRIVATE).getString(
-                AUTHENTICATED_SHARED_KEY, ""
-            )
-            Repository.createRetrofitWithAuth(token!!)
-
+                AUTHENTICATED_SHARED_KEY, "")
+            Log.d(MY_LOG, token.toString())
+            createRetrofitWithAuth(token!!)
             startFeedActivity()
         } else {
 
@@ -46,9 +46,8 @@ class MainActivity : AppCompatActivity() {
                     }
                     progressDialog.dismiss()
                     response.getOrNull()?.body()?.let {
-                        easyToastRes(this@MainActivity, R.string.success)
-                        setUserAuth(it.token)
-
+                        toast(R.string.success)
+                        setUserAuth(it.id, it.token)
                         startFeedActivity()
                     } ?: run {
                         case_password.error = getString(R.string.authentication_failed)
@@ -68,9 +67,10 @@ class MainActivity : AppCompatActivity() {
             AUTHENTICATED_SHARED_KEY, ""
         )?.isNotEmpty() ?: false
 
-    private fun setUserAuth(token: String) =
+    private fun setUserAuth(id: Int, token: String) =
         getSharedPreferences(API_SHARED_FILE, Context.MODE_PRIVATE)
             .edit()
+            .putInt(AUTHENTICATED_ID, id)
             .putString(AUTHENTICATED_SHARED_KEY, token)
             .apply()
 
