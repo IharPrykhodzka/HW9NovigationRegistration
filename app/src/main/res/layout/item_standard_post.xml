@@ -95,17 +95,18 @@
                 tools:text="Some Text! Some Text! Some Text! Some Text! Some Text! Some Text! Some Text! Some Text! Some Text! Some Text! Some Text! Some Text! Some Text! Some Text! " />
 
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/btnLike"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginEnd="32dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/ic_baseline_favorite_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnComment"
                 app:layout_constraintTop_toBottomOf="@id/text" />
+
 
             <TextView
                 android:id="@+id/forBtnLike"
@@ -119,7 +120,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/text"
                 tools:text="10" />
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/btnComment"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
@@ -144,7 +145,7 @@
                 tools:text="10" />
 
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/btnShare"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
@@ -184,7 +185,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text" />
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/btnMapEventPost"
                 android:layout_width="24dp"
                 android:layout_height="24dp"

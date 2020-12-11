@@ -23,5 +23,6 @@
     <string name="address_for_link">Адресс</string>
     <string name="like_in_progress">Лайк в процессе</string>
     <string name="link_text"><u>Ссылка</u></string>
+    <string name="error_download_posts">Постов нет.</string>
 
 </resources>

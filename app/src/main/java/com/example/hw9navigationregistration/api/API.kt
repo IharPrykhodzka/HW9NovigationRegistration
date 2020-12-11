@@ -1,10 +1,9 @@
 package com.example.hw9navigationregistration.api
 
 import com.example.hw9navigationregistration.dto.PostResponseDto
+import com.example.hw9navigationregistration.model.PostModel
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface API {
     @POST("/api/v1/authentication")
@@ -15,4 +14,10 @@ interface API {
 
     @GET("api/v1/posts")
     suspend fun getAllPosts(): Response<List<PostResponseDto>>
+
+    @POST("api/v1/posts/{id}/likes ")
+    suspend fun likedByMe(@Path("id")id: Int):Response<PostModel>
+
+    @DELETE("api/v1/posts/{id}/likes")
+    suspend fun cancelMyLike(@Path("id")id: Int):Response<PostModel>
 }

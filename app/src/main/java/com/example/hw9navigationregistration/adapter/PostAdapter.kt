@@ -5,15 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hw9navigationregistration.R
 import com.example.hw9navigationregistration.model.PostModel
 import kotlinx.android.synthetic.main.item_standard_post.view.*
 import splitties.toast.toast
 
+
 class PostAdapter(val list: List<PostModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    // var likeBtnClickListener: OnLikeBtnClickListener? = null
-    //TODO
+    var likeBtnClickListener: OnLikeBtnClickListener? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view =
@@ -33,14 +35,15 @@ class PostAdapter(val list: List<PostModel>) : RecyclerView.Adapter<RecyclerView
     }
 
 
-//    interface OnLikeBtnClickListener {
-//        fun onLikeBtnClicked(item: PostModel, position: Int)
-//    }
+    interface OnLikeBtnClickListener {
+        fun onLikeBtnClicked(item: PostModel, position: Int)
+    }
 }
 
 
 class PostViewHolder(private val adapter: PostAdapter, view: View) : RecyclerView.ViewHolder(view) {
     init {
+
         with(itemView) {
             btnLike.setOnClickListener {
                 val currentPosition = adapterPosition
@@ -49,13 +52,12 @@ class PostViewHolder(private val adapter: PostAdapter, view: View) : RecyclerVie
 
                     if (item.likedByMe) {
                         context.toast(context.getString(R.string.like_in_progress))
-                        itemView.btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_red_24)
                     } else {
-                        itemView.btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
+                        adapter.likeBtnClickListener?.onLikeBtnClicked(item, currentPosition)
                     }
                 }
-                adapter.notifyItemChanged(currentPosition)
             }
+
 
             btnShare.setOnClickListener {
                 val currentPosition = adapterPosition
@@ -63,8 +65,6 @@ class PostViewHolder(private val adapter: PostAdapter, view: View) : RecyclerVie
                     val item = adapter.list[currentPosition]
 
                     if (item.sharedByMe) {
-                        itemView.btnShare.setBackgroundResource(R.drawable.ic_baseline_share_red_24)
-
                         val intent = Intent().apply {
                             action = Intent.ACTION_SEND
                             putExtra(
@@ -80,9 +80,7 @@ class PostViewHolder(private val adapter: PostAdapter, view: View) : RecyclerVie
 
                     } else {
                         context.toast(context.getString(R.string.like_in_progress))
-                        itemView.btnShare.setBackgroundResource(R.drawable.ic_baseline_share_24)
                     }
-                    adapter.notifyItemChanged(currentPosition)
                 }
             }
         }
@@ -96,10 +94,10 @@ class PostViewHolder(private val adapter: PostAdapter, view: View) : RecyclerVie
             author.text = post.author
             text.text = post.content
 
-            when (post.likedByMe) {
-                true -> btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_red_24)
-                false -> btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
-            }
+//            when (post.likedByMe) {
+//                true -> btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_red_24)
+//                false -> btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
+//            }
 
             if (post.likesCount == 0) {
                 forBtnLike.visibility = View.GONE
@@ -108,31 +106,42 @@ class PostViewHolder(private val adapter: PostAdapter, view: View) : RecyclerVie
                 forBtnLike.text = post.likesCount.toString()
             }
 
-            when (post.commentedByMe) {
-                true -> btnComment.setBackgroundResource(R.drawable.ic_baseline_mode_comment_red_24)
-                false -> btnComment.setBackgroundResource(R.drawable.ic_baseline_mode_comment_24)
-            }
 
-            if (post.commentsCount == 0) {
-                forBtnComment.visibility = View.GONE
+//            when (post.commentedByMe) {
+//                true -> btnComment.setBackgroundResource(R.drawable.ic_baseline_mode_comment_red_24)
+//                false -> btnComment.setBackgroundResource(R.drawable.ic_baseline_mode_comment_24)
+//            }
+//
+//            if (post.commentsCount == 0) {
+//                forBtnComment.visibility = View.GONE
+//            } else {
+//                forBtnComment.visibility = View.VISIBLE
+//                forBtnComment.text = post.commentsCount.toString()
+//            }
+//
+//            when (post.sharedByMe) {
+//                true -> btnShare.setBackgroundResource(R.drawable.ic_baseline_share_red_24)
+//                false -> btnShare.setBackgroundResource(R.drawable.ic_baseline_share_24)
+//            }
+//
+//            if (post.shareCount == 0) {
+//                forBtnShare.visibility = View.GONE
+//            } else {
+//                forBtnShare.visibility = View.VISIBLE
+//                forBtnShare.text = post.shareCount.toString()
+//            }
+
+            if (post.likeActionPerforming) {
+                btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_blue_24)
+            } else if (post.likedByMe) {
+                btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_red_24)
+                forBtnLike.setTextColor(ContextCompat.getColor(context, R.color.red))
             } else {
-                forBtnComment.visibility = View.VISIBLE
-                forBtnComment.text = post.commentsCount.toString()
-            }
+                btnLike.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
+                forBtnLike.setTextColor(ContextCompat.getColor(context, R.color.grey))
 
-            when (post.sharedByMe) {
-                true -> btnShare.setBackgroundResource(R.drawable.ic_baseline_share_red_24)
-                false -> btnShare.setBackgroundResource(R.drawable.ic_baseline_share_24)
-            }
-
-            if (post.shareCount == 0) {
-                forBtnShare.visibility = View.GONE
-            } else {
-                forBtnShare.visibility = View.VISIBLE
-                forBtnShare.text = post.shareCount.toString()
             }
         }
-
     }
 }
 

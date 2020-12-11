@@ -70,4 +70,8 @@ object Repository {
 
     suspend fun getAllPosts() =
         API.getAllPosts()
+
+    suspend fun likedByMe(id: Int) = API.likedByMe(id)
+
+    suspend fun cancelMyLike(id: Int) = API.cancelMyLike(id)
 }

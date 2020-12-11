@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HW9NavigationRegistration">
+        android:theme="@style/Theme.HW9MD">
         <activity android:name="com.example.hw9navigationregistration.MainActivity"
             android:label="@string/auth_label">
             <intent-filter>
